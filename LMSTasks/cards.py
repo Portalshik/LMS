@@ -19,14 +19,15 @@ class Board:
     def render(self, surface):
         for i in range(0, self.height):
             for j in range(0, self.width):
+
                 temp = pygame.sprite.Sprite()
-                match self.board[i][j]:
-                    case ".":
-                        temp.image = pygame.image.load("data/grass.png")
-                    case "@":
-                        temp.image = pygame.image.load("data/grass.png")
-                    case "#":
-                        temp.image = pygame.image.load("data/box.png")
+                if self.board[i][j] == ".":
+                    temp.image = pygame.image.load("grass.png")
+                if self.board[i][j] == "@":
+                    temp.image = pygame.image.load("grass.png")
+                if self.board[i][j] == "#":
+                    temp.image = pygame.image.load("box.png")
+
                 temp.rect = temp.image.get_rect()
                 temp.rect.x = self.left + self.cell_size * i
                 temp.rect.y = self.top + self.cell_size * j
@@ -87,7 +88,7 @@ class Player:
     def __init__(self, x, y):
         self.group = pygame.sprite.Group()
         self.player = pygame.sprite.Sprite()
-        self.player.image = pygame.image.load("data/mar.png")
+        self.player.image = pygame.image.load("mar.png")
         self.player.rect = self.player.image.get_rect()
         self.player.rect.x = x + 13
         self.player.rect.y = y
@@ -108,9 +109,9 @@ class Player:
 running = True
 size = (550, 550)
 screen = pygame.display.set_mode(size)
-game = Game("data/map.txt", screen)
-fon = Fon("data/fon.jpg")
-with open("data/map.txt", 'r') as mapFile:
+game = Game("map.txt", screen)
+fon = Fon("fon.jpg")
+with open("map.txt", 'r') as mapFile:
     level_map = [line.strip() for line in mapFile]
 temp = [(level_map.index(i), i.index("@")) for i in level_map if "@" in i]
 x, y = temp[0][0] * 50, temp[0][1] * 50
