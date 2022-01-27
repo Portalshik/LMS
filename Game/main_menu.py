@@ -39,18 +39,20 @@ size = (800, 700)
 screen = pygame.display.set_mode(size)
 all_sprites = pygame.sprite.Group()
 group = ButtonGroup()
-play_button = MainMenu("play_button.png", (size[0] // 2, size[1] // 2))
-settings = MainMenu("settings.png", (700, 10))
+play_button = MainMenu("DATA/play_button.png", (size[0] // 2, size[1] // 2))
+settings = MainMenu("DATA/settings.png", (700, 10))
 
 
 @play_button.add_function
 def play():
     print("Game In Work")
+    running = False
+    os.system("python game.py")
 
 
 @settings.add_function
 def setting():
-    print("Settings In Work")
+    os.system("python settings.py")
 
 
 group.add(play_button, settings)
