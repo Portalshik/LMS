@@ -6,6 +6,7 @@ with open('config.json') as cat_file:
 
 VOLUME = list(data.items())[0][1]
 PLAYER_PICTURE = list(data.items())[1][1]
+LEVELNUM = data["levelNum"]
 
 
 class Board:
@@ -64,7 +65,7 @@ class Board:
 
     def alive(self, x, y):
         if self.board[y][x] == "*" or self.board[y][x] == "+" or self.board[y][x] == "-" or self.board[y][x] == "/":
-            with open('DATA/map.txt', 'r', encoding='utf-8') as mapFile:
+            with open(f'Levels/map{LEVELNUM}.txt', 'r', encoding='utf-8') as mapFile:
                 res = ""
                 mp = mapFile.readlines()
                 for i in range(len(mp)):
@@ -79,7 +80,7 @@ class Board:
                             res += mp[y].replace("/", '.')
                     else:
                         res += "".join(mp[i])
-                with open("DATA/map.txt", "w", encoding="utf-8") as f:
+                with open(f"Levels/map{LEVELNUM}.txt", "w", encoding="utf-8") as f:
                     f.write(res)
             self.render(screen)
             return True
@@ -466,7 +467,7 @@ FPS = 60
 pygame.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode(size)
-game = Game("DATA/map.txt", screen)
+game = Game(f"Levels/map{LEVELNUM}.txt", screen)
 pygame.mixer.music.load('DATA/music_fon.wav')
 shot = pygame.mixer.Sound('DATA/shot.wav')
 deaded = pygame.mixer.Sound('DATA/dead.wav')
@@ -477,7 +478,7 @@ screen = pygame.display.set_mode(size)
 strike = None
 enemies = GroupOfCreatures([])
 fon = Fon("DATA/fon.png", size)
-with open("DATA/map.txt", 'r') as mapFile:
+with open(f"Levels/map{LEVELNUM}.txt", 'r') as mapFile:
     level_map = [line.strip() for line in mapFile]
 temp = [(level_map.index(i), i.index("@")) for i in level_map if "@" in i]
 enemy = [(level_map.index(i), i.index("*")) for i in level_map if "*" in i]

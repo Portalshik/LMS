@@ -53,7 +53,8 @@ while running:
         if event.type == pygame.QUIT:
             data = {
                 "volume": volume,
-                "playerPicture": playerPicture
+                "playerPicture": playerPicture,
+                "levelNum": data["levelNum"]
             }
             with open("config.json", "w") as file:
                 json.dump(data, file)
@@ -79,9 +80,8 @@ while running:
                     center = (event.pos[0], center[1])
 
                     pygame.display.update()
-                    print((center[0] - 50) / 4)
         except AttributeError:
-            pass
+            pygame.display.update()
         if event.type == pygame.MOUSEBUTTONUP:
             flag = False
     tanks.draw(screen)
